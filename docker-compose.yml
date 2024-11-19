@@ -1,0 +1,25 @@
+version: '3.9'
+
+services:
+  webservice:
+    build:
+      context: ./webservice
+    environment:
+      - SERVICE_MESSAGE= Hello, this is assignment 3!
+    ports:
+      - "5000"
+    networks:
+      - app-network  
+
+  loadbalancer:
+    build:
+      context: ./loadbalancer
+    ports:
+      - "9090:80"
+    depends_on:
+      - webservice
+    networks:
+      - app-network  
+
+networks:
+  app-network:  
